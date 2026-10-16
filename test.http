@@ -1,9 +1,10 @@
+@baseUrl = https://dummyjson.com
 @id = 1
 @userId = 121
 
 ### GET Post by ID
-GET https://dummyjson.com/posts/{{id}}
+GET {{baseUrl}}/posts/{{id}}
 
 ### GET User by ID
 
-GET https://dummyjson.com/users/{{userId}}
+GET {{baseUrl}}/users/{{userId}}
