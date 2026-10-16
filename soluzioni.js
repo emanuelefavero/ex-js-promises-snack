@@ -15,7 +15,7 @@ console.log('De-commenta i tests di questo file per verificare le soluzioni');
   const getPostTitle = id =>
     fetch(getUrl(ENDPOINTS.posts, id))
       .then(res => res.json())
-      .then(({ title }) => resolve(title));
+      .then(({ title }) => title);
 
   // getPostTitle(1).then(console.log).catch(console.log);
 
@@ -30,4 +30,8 @@ console.log('De-commenta i tests di questo file per verificare le soluzioni');
       );
 
   getPost(1).then(console.log).then(console.log);
+}
+
+// SNACK 2
+{
 }
