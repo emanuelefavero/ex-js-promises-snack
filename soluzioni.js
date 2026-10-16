@@ -35,16 +35,16 @@ console.log('De-commenta i tests di questo file per verificare le soluzioni');
       );
 
   // Run
-  // getPostTitle(1).then(console.log).catch(console.log);
-  // getPost(1).then(console.log).catch(console.log);
+  // getPostTitle(1).then(console.log).catch(console.error);
+  // getPost(1).then(console.log).catch(console.error);
 }
 
 // SNACK 2
 {
   // Config
   const DICE_SIDES = 6;
-  const MS = 3;
-  const PERCENTAGE_THRESHOLD = 0.2;
+  const DELAY_MS = 3000;
+  const FAILURE_PROBABILITY = 0.2;
   const REJECT_MESSAGE = 'Dado incastrato';
 
   // Utils
@@ -54,44 +54,33 @@ console.log('De-commenta i tests di questo file per verificare le soluzioni');
   // SNACK 2 - lanciaDado
   const lanciaDado = () =>
     new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const diceNum = getRandomInt(1, DICE_SIDES);
-        const percentage = Math.random();
+      console.log('Dado lanciato...');
 
-        if (percentage <= PERCENTAGE_THRESHOLD)
+      setTimeout(() => {
+        if (Math.random() < FAILURE_PROBABILITY)
           return reject(new Error(REJECT_MESSAGE));
 
-        resolve(diceNum);
-      }, MS);
+        resolve(getRandomInt(1, DICE_SIDES));
+      }, DELAY_MS);
     });
-
-  // Run
-  // lanciaDado().then(console.log).catch(console.log);
 
   // SNACK 2 - creaLanciaDado (Bonus)
   const creaLanciaDado = () => {
     let lastResult = null;
 
     return () =>
-      new Promise((resolve, reject) => {
-        console.log(lastResult);
+      lanciaDado().then(diceNum => {
+        if (diceNum === lastResult) {
+          console.log('Incredibile!');
+        }
 
-        setTimeout(() => {
-          const diceNum = getRandomInt(1, DICE_SIDES);
-          const percentage = Math.random();
+        lastResult = diceNum;
 
-          if (percentage <= PERCENTAGE_THRESHOLD)
-            return reject(new Error(REJECT_MESSAGE));
-
-          if (diceNum === lastResult) console.log('Incredibile!');
-          resolve(diceNum);
-
-          lastResult = diceNum;
-        }, MS);
+        return diceNum;
       });
   };
 
   // Run
-  const lanciaDadoClosure = creaLanciaDado();
-  lanciaDadoClosure().then(console.log).catch(console.log);
+  const dado = creaLanciaDado();
+  dado().then(console.log).catch(console.error);
 }
