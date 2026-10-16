@@ -41,4 +41,26 @@ console.log('De-commenta i tests di questo file per verificare le soluzioni');
 
 // SNACK 2
 {
+  // Config
+  const DICE_SIDES = 6;
+  const MS = 3000;
+  const PERCENTAGE_THRESHOLD = 0.2;
+  const REJECT_MESSAGE = 'Dado incastrato';
+
+  const getRandomInt = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1) + min);
+
+  const lanciaDado = () =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const diceNum = getRandomInt(1, DICE_SIDES);
+        const percentage = Math.random();
+
+        if (percentage <= PERCENTAGE_THRESHOLD) return reject(REJECT_MESSAGE);
+
+        resolve(diceNum);
+      }, MS);
+    });
+
+  lanciaDado().then(console.log).catch(console.log);
 }
