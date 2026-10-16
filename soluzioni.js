@@ -19,6 +19,7 @@ console.log('De-commenta i tests di questo file per verificare le soluzioni');
   };
 
   // SNACK 1 - getPostTitle
+  // NOTE: Ho evitato una Promise qui perche' fetch ritorna gia' una Promise. Per l'esempio Promise esplicita, vedi lo snack 2
   const getPostTitle = id =>
     fetch(getUrl(ENDPOINTS.posts, id))
       .then(checkResponse)
