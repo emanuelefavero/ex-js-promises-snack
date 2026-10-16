@@ -1,0 +1,9 @@
+@id = 1
+@userId = 121
+
+### GET Post by ID
+GET https://dummyjson.com/posts/{{id}}
+
+### GET User by ID
+
+GET https://dummyjson.com/users/{{userId}}
